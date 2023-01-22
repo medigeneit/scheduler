@@ -1,6 +1,6 @@
 const fs = require( 'fs' );
 const path = require('path');
-const  basedir = path.join(__dirname, '/../.data/');
+const  basedir = path.join(__dirname, '/../.data');
 
 module.exports = {
     index(req, res){
