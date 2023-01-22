@@ -2,6 +2,22 @@ const fs = require( 'fs' );
 const path = require('path');
 const  basedir = path.join(__dirname, '/../.data');
 
+
+function dateWithTimezone(input = null,offset) {
+    // create Date object for current location
+    const d = new Date(input);
+
+    // convert to
+    // subtract local time zone offset
+    // get UTC time in msec
+    const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+
+    // create new Date object for different city
+    // using supplied offset
+    return new Date(utc + (3600000*offset));
+
+}
+
 module.exports = {
     index(req, res){
         res.send({"schedules":[]});
@@ -14,7 +30,7 @@ module.exports = {
 
             const input = req.body;
 
-            const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
+            const _time = Math.floor( dateWithTimezone( input.date, 6 ).getTime() / 1000 );
 
             const schedulesDataDir = `${basedir}/schedules/${_time}`;
 
@@ -24,7 +40,7 @@ module.exports = {
                 });
             }
 
-            const date = new Date();
+            const date = dateWithTimezone(null,6);
             console.log({time: _time});
 
             const data =JSON.stringify({
