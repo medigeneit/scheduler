@@ -68,7 +68,8 @@ module.exports = {
                     data: req.body,
                     params:req.params,
                     query: req.query
-                }
+                },
+                "schedule": data
             })
 
             //console.log(`Appended data to '../.data/abcd.json'`);
