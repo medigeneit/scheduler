@@ -29,6 +29,7 @@ module.exports = {
 
             const data =JSON.stringify({
                 id: date.getTime(),
+                created_at: `${date.toDateString()} ${date.toTimeString()}`,
                 method: input.method,
                 protocol: input.protocol || "https",
                 url: input.url || 'get',
