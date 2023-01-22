@@ -19,9 +19,9 @@ module.exports = {
             const schedulesDataDir = `${basedir}/schedules/${_time}`;
 
             if ( !fs.existsSync(schedulesDataDir) ) {
-                fs.mkdir( schedulesDataDir, {
+                fs.mkdirSync( schedulesDataDir, {
                     recursive: true
-                }, function (err) {});
+                });
             }
 
             const date = new Date();
@@ -38,7 +38,7 @@ module.exports = {
 
             await fs.appendFile(
                 `${schedulesDataDir}/${date.getTime()}.json`, data,
-                { flag: 'w' },
+                { flag: 'w+' },
                 ( err, file) => {
                     if(err) throw err;
                 }
