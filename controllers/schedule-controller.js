@@ -22,7 +22,7 @@ module.exports = {
             successCodes: [ parseInt(input[ 'expected-status-code' ] || "200") ]
         };
 
-        //console.log( typeof data)
+       
 
         const schedule = await controller.store( `schedules/${_time}`, data );
 
@@ -64,7 +64,7 @@ module.exports = {
                 "schedule": schedule
             })
 
-            //console.log(`Appended data to '../.data/abcd.json'`);
+           
 
         } catch (error) {
 
@@ -82,7 +82,7 @@ module.exports = {
 
     show(req, res){
 
-        console.log( {data: req.body, params:req.params, query: req.query });
+       
 
         res.send({
             "message":'Schedule successfully created',

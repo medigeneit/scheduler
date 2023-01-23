@@ -17,16 +17,16 @@ app.init = ( ) => {
         const d = new ZoneDate();
         let utcHours = (d.getUTCHours() + 6) % 24;
         let hours = d.getHours();
-        console.log({utcHours,hours} );
+       
         //express_server.host;
 
-        console.log( `Example app listening on port ${port}` );
+       
         workers.init( );
 
 
         /*
         const r =  new Date( "2022-01-23 12:00:00:000 UTC+6" );
-        console.log( r.getTime( ), new Date(r.toISOString( )).getTime(), (new Date( )).getTime( ) );
+       
         */
     })
 };
