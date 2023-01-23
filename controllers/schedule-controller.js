@@ -4,21 +4,6 @@ const basedir = path.join(__dirname, '/../.data');
 const controller = require('./controller');
 const ZoneDate = require("../lib/zone-date");
 
-function dateWithTimezone(input = null,offset) {
-    // create Date object for current location
-    const d = new Date(input);
-
-    // convert to
-    // subtract local time zone offset
-    // get UTC time in msec
-    const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-
-    // create new Date object for different city
-    // using supplied offset
-    return new Date(utc + (3600000*offset));
-
-}
-
 module.exports = {
     index(req, res){
         res.send({"schedules":[]});
@@ -26,25 +11,24 @@ module.exports = {
     ,
     async store(req, res){
         //console.log( {data: req.body, params:req.params, query: req.query });
+        //
+        // try {
+        //     const r = await controller.store('schedules');
+        //     console.log( "RRR", r);
+        //     res.send({'ok':55});
+        //
+        // }catch ( e ) {
+        //     res.send({'ok':500, 'msg': e});
+        // }
+
 
         try {
-            const r = await controller.store('schedules');
-            console.log( "RRR", r);
-            res.send({'ok':55});
-
-        }catch (e) {
-            res.send({'ok':500, 'msg': e});
-        }
-
-
-        try {
-
 
             console.log( "RRR", r);
 
             const input = req.body;
 
-            const _time = Math.floor( new ZoneDate( input.date ).getTime() / 1000 );
+            const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
 
 
             const data =JSON.stringify({
@@ -69,6 +53,7 @@ module.exports = {
             })
 
             //console.log(`Appended data to '../.data/abcd.json'`);
+
         } catch (error) {
 
             res.send({
