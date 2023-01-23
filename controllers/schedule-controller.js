@@ -23,8 +23,8 @@ module.exports = {
 
 
         try {
-
-            console.log( "RRR", r);
+            //
+            // console.log( "RRR", r);
 
             const input = req.body;
 
