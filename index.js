@@ -14,7 +14,7 @@ app.init = ( ) => {
         console.log(`Example app listening on port ${port}`);
         workers.init();
 
-        const r =  new Date("2022-01-23 12:00:00:000 GMT+6");
+        const r =  new Date("2022-01-23 12:00:00:000");
 
 
         console.log( r.getTime(), new Date(r.toISOString()).getTime(), new Date().getTime() );
