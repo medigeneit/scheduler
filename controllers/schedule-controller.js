@@ -10,26 +10,10 @@ module.exports = {
     }
     ,
     async store(req, res){
-        //console.log( {data: req.body, params:req.params, query: req.query });
-        //
-        // try {
-        //     const r = await controller.store('schedules');
-        //     console.log( "RRR", r);
-        //     res.send({'ok':55});
-        //
-        // }catch ( e ) {
-        //     res.send({'ok':500, 'msg': e});
-        // }
-
-
         try {
-            //
-            // console.log( "RRR", r);
 
             const input = req.body;
-
             const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
-
 
             const data =JSON.stringify({
                 method: input.method,
