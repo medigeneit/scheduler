@@ -1,7 +1,8 @@
 const fs = require( 'fs' );
 const path = require('path');
-const  basedir = path.join(__dirname, '/../.data');
-
+const basedir = path.join(__dirname, '/../.data');
+const controller = require('./controller');
+const ZoneDate = require("../lib/zone-date");
 
 function dateWithTimezone(input = null,offset) {
     // create Date object for current location
@@ -24,28 +25,29 @@ module.exports = {
     }
     ,
     async store(req, res){
-        console.log( {data: req.body, params:req.params, query: req.query });
+        //console.log( {data: req.body, params:req.params, query: req.query });
+
+        try {
+            const r = await controller.store('schedules');
+            console.log( "RRR", r);
+            res.send({'ok':55});
+
+        }catch (e) {
+            res.send({'ok':500, 'msg': e});
+        }
+
 
         try {
 
+
+            console.log( "RRR", r);
+
             const input = req.body;
 
-            const _time = Math.floor( dateWithTimezone( input.date, 6 ).getTime() / 1000 );
+            const _time = Math.floor( new ZoneDate( input.date ).getTime() / 1000 );
 
-            const schedulesDataDir = `${basedir}/schedules/${_time}`;
-
-            if ( !fs.existsSync(schedulesDataDir) ) {
-                fs.mkdirSync( schedulesDataDir, {
-                    recursive: true
-                });
-            }
-
-            const date = dateWithTimezone(null,6);
-            console.log({time: _time});
 
             const data =JSON.stringify({
-                id: date.getTime(),
-                created_at: `${date.toDateString()} ${date.toTimeString()}`,
                 method: input.method,
                 protocol: input.protocol || "https",
                 url: input.url || 'get',
@@ -53,13 +55,7 @@ module.exports = {
                 successCodes: [ parseInt(input.expectedStatusCode || "200") ]
             });
 
-            await fs.appendFile(
-                `${schedulesDataDir}/${date.getTime()}.json`, data,
-                { flag: 'w+' },
-                ( err, file) => {
-                    if(err) throw err;
-                }
-            );
+            const schedule = await controller.store( `schedules/${_time}`, data );
 
             res.send({
                 "message":'Schedule successfully created',
@@ -69,7 +65,7 @@ module.exports = {
                     params:req.params,
                     query: req.query
                 },
-                "schedule": data
+                "schedule": schedule
             })
 
             //console.log(`Appended data to '../.data/abcd.json'`);

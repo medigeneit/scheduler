@@ -3,6 +3,8 @@ const server = require('./lib/server');
 const port = 213;
 const workers = require('./lib/worker');
 
+const ZoneDate = require( './lib/zone-date');
+
 // app object - module scaffolding
 const app = {};
 
@@ -10,14 +12,21 @@ const app = {};
 app.init = ( ) => {
     // start the express server
     server.listen( port, () => {
+
+        const d = new Date("January 23, 2023 03:14:00");
+        let utcHours = d.getUTCHours();
+        let hours = d.getHours();
+        console.log({utcHours,hours} );
         //express_server.host;
-        console.log(`Example app listening on port ${port}`);
-        workers.init();
 
-        const r =  new Date("2022-01-23 12:00:00:000");
+        console.log( `Example app listening on port ${port}` );
+        workers.init( );
 
 
-        console.log( r.getTime(), new Date(r.toISOString()).getTime(), new Date().getTime() );
+        /*
+        const r =  new Date( "2022-01-23 12:00:00:000 UTC+6" );
+        console.log( r.getTime( ), new Date(r.toISOString( )).getTime(), (new Date( )).getTime( ) );
+        */
     })
 };
 
