@@ -14,8 +14,8 @@ app.init = ( ) => {
     server.listen( port, () => {
 
         //const d = new Date("January 23, 2023 03:14:00");
-        const d = new Date();
-        let utcHours = d.getUTCHours();
+        const d = new ZoneDate();
+        let utcHours = (d.getUTCHours() + 6) % 24;
         let hours = d.getHours();
         console.log({utcHours,hours} );
         //express_server.host;
