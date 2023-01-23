@@ -10,7 +10,33 @@ module.exports = {
     }
     ,
     async store(req, res){
-        try {
+
+        const input = req.body;
+        const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
+
+        const data =JSON.stringify({
+            method: input.method,
+            protocol: input.protocol || "https",
+            url: input.url || 'get',
+            timeoutSeconds: parseInt(input.timeoutSeconds || "120" ),
+            successCodes: [ parseInt(input.expectedStatusCode || "200") ]
+        });
+
+        const schedule = await controller.store( `schedules/${_time}`, data );
+
+        res.send({
+            "message":'Schedule successfully created',
+            "status":true,
+            "server":{
+                data: req.body,
+                params:req.params,
+                query: req.query
+            },
+            "schedule": schedule
+        })
+
+
+        /*try {
 
             const input = req.body;
             const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
@@ -47,7 +73,7 @@ module.exports = {
             });
 
             //console.error(`Got an error trying to append the file: ${error.message}`);
-        }
+        }*/
 
     },
 

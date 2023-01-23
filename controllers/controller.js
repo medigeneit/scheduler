@@ -27,7 +27,7 @@ controller.store = async ( collection, data  ) => {
                 JSON.stringify( date ),{ flag: 'w+' },
                 (err) => {
                     if( err ) {
-                        reject( err );
+                        reject( " R "+err );
                     }else {
                         resolve( data );
                     }
