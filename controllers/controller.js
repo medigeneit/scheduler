@@ -4,15 +4,16 @@ const controller = {};
 
 controller.basedir =  path.join(__dirname, '/../.data');
 
-controller.store = async ( collection, data  ) => {
+controller.store = async ( collection, record  ) => {
 
-    const date = new Date();
 
     return new Promise((resolve, reject) =>{
-        if( typeof data == 'object' ) {
+        if( typeof record == 'object' ) {
 
-            data["id"] = date.getTime( );
-            data["created_at"] = `${date.toDateString()} ${date.toTimeString()}`;
+            const date = new Date();
+
+            record["id"] = date.getTime( );
+            record["created_at"] = `${date.toDateString()} ${date.toTimeString()}`;
 
             const collectionDir = `${controller.basedir}/${collection}`;
 
@@ -23,13 +24,13 @@ controller.store = async ( collection, data  ) => {
             }
 
             fs.appendFile(
-                `${collectionDir}/${data.id}.json`,
+                `${collectionDir}/${record.id}.json`,
                 JSON.stringify( date ),{ flag: 'w+' },
                 (err) => {
                     if( err ) {
-                        reject( " R "+err );
+                        reject(  err );
                     }else {
-                        resolve( data );
+                        resolve( record );
                     }
                 }
             );

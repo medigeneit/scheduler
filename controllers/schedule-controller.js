@@ -14,13 +14,15 @@ module.exports = {
         const input = req.body;
         const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
 
-        const data =JSON.stringify({
+        const data = {
             method: input.method,
             protocol: input.protocol || "https",
             url: input.url || 'get',
             timeoutSeconds: parseInt(input.timeoutSeconds || "120" ),
-            successCodes: [ parseInt(input.expectedStatusCode || "200") ]
-        });
+            successCodes: [ parseInt(input[ 'expected-status-code' ] || "200") ]
+        };
+
+        //console.log( typeof data)
 
         const schedule = await controller.store( `schedules/${_time}`, data );
 
