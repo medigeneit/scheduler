@@ -13,7 +13,8 @@ app.init = ( ) => {
     // start the express server
     server.listen( port, () => {
 
-        const d = new Date("January 23, 2023 03:14:00");
+        //const d = new Date("January 23, 2023 03:14:00");
+        const d = new Date();
         let utcHours = d.getUTCHours();
         let hours = d.getHours();
         console.log({utcHours,hours} );
