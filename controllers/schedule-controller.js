@@ -7,10 +7,8 @@ const ZoneDate = require("../lib/zone-date");
 module.exports = {
     index(req, res){
         res.send({"schedules":[]});
-    }
-    ,
+    },
     async store(req, res){
-
         const input = req.body;
         const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
 
@@ -21,8 +19,6 @@ module.exports = {
             timeoutSeconds: parseInt(input.timeoutSeconds || "120" ),
             successCodes: [ parseInt(input[ 'expected-status-code' ] || "200") ]
         };
-
-       
 
         const schedule = await controller.store( `schedules/${_time}`, data );
 
@@ -36,54 +32,11 @@ module.exports = {
             },
             "schedule": schedule
         })
+    }
 
-
-        /*try {
-
-            const input = req.body;
-            const _time = Math.floor( new Date( input.date ).getTime() / 1000 );
-
-            const data =JSON.stringify({
-                method: input.method,
-                protocol: input.protocol || "https",
-                url: input.url || 'get',
-                timeoutSeconds: parseInt(input.timeoutSeconds || "120" ),
-                successCodes: [ parseInt(input.expectedStatusCode || "200") ]
-            });
-
-            const schedule = await controller.store( `schedules/${_time}`, data );
-
-            res.send({
-                "message":'Schedule successfully created',
-                "status":true,
-                "server":{
-                    data: req.body,
-                    params:req.params,
-                    query: req.query
-                },
-                "schedule": schedule
-            })
-
-           
-
-        } catch (error) {
-
-            res.send({
-                "message":`Got an error trying to creating schedule: ${error.message}`,
-                "success":false,
-                "server":{data: req.body, params:req.params, query: req.query }
-            });
-
-            //console.error(`Got an error trying to append the file: ${error.message}`);
-        }*/
-
-    },
-
+    ,
 
     show(req, res){
-
-       
-
         res.send({
             "message":'Schedule successfully created',
             "status":true, data: [req.body ],
