@@ -20,8 +20,15 @@ app.init = ( ) => {
        
         //express_server.host;
 
-       
-        workers.init( );
+        workers.checkData('1676455700' );
+
+
+        try {
+            workers.init( );
+        }catch (e){
+
+        }
+
 
 
         /*

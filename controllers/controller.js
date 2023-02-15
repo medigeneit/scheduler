@@ -14,7 +14,7 @@ controller.store = async ( collection, record  ) => {
             const date = new ZoneDate();
 
             record["id"] = date.getTime( );
-            record["created_at"] = `${date.toDateString()} ${date.toTimeString()}`;
+            record["created_at"] = `${date.format('{Y}-{m}-{d} {H}:{i}:{s}')}`;
 
             const collectionDir = `${controller.basedir}/${collection}`;
 
